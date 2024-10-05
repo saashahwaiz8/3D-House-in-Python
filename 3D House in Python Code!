@@ -1,0 +1,36 @@
+from ursina import *
+from ursina.prefabs.first_person_controller import FirstPersonController
+
+class Ground(Entity):
+    def __init__(self):
+        super().__init__(
+            model = 'cube',
+            scale = Vec3(10000,2,10000),
+            texture = 'grass',
+            collider = 'box'
+        )
+
+class House(Entity):
+    def __init__(self):
+        super().__init__(
+            model = "Squadhouse.fbx",
+            collider = 'box',
+            texture = 'shore',
+            scale = Vec3(.5,.5,.5),
+            position = Vec3(0,0,0)
+        )
+
+app = Ursina()
+Sky(texture = 'sky_sunset')
+window.fullscreen = True
+
+player = FirstPersonController(model = 'cube', color = color.cyan)
+camera.z = -5
+
+Ground()
+House()
+
+player.speed = 100 * player.speed
+player.jump_height = 100 * player.jump_height
+player.position = Vec3(0,1000,0)
+app.run()
